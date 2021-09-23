@@ -10,6 +10,7 @@ total_net = 0
 profit_loss = 0
 change = 0
 change_list = [0]
+date_list = []
 avg_chage = 0
 greatest_increase = 0
 greatest_decrease = 0
@@ -27,17 +28,29 @@ with open(file_path) as csv_file:
         profit_loss = int(row[1])
         total_net = total_net + profit_loss
         change_list.append(profit_loss - change)
+        date_list.append(row[0])
+        
 
-    
+
 # Define funtion to calculate the average    
 def average(list):
     return sum(list) / len(list)
-# Clean up the list from starter rows
+
+
+# Clean up the first two rows from the list
 del change_list[0]
 del change_list[0]
+del date_list[0]
+del date_list[0]
 
 # Call average function
 average_change = average(change_list)
+
+# Find where the greatest increase is
+index_increase = change_list.index(max(change_list))
+
+# Find where the greatest decrease is
+index_decrease = change_list.index(min(change_list))
 
 # print out
 print("Financial Analysis")
@@ -45,5 +58,7 @@ print("------------------------------------")
 print(f"Total Months {total_months}")
 print(f"Total: ${total_net}")
 print(f"Average Change: ${average_change:.2f}")
+print(f"Greatest Increase in Profits: {date_list[index_increase]} $({change_list[index_increase]})")
+print(f"Greatest Decrease in Profits: {date_list[index_decrease]} $({change_list[index_decrease]})")
 # print(change_list)
 
