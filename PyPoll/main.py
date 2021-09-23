@@ -9,6 +9,7 @@ total_votes = 0
 candidates = []
 vote_list = []
 candidate_list = []
+winner_list = []
 votes = []
 percentage = []
 
@@ -37,16 +38,41 @@ with open(file_path) as csv_file:
 
 candidate_list = list(candidate_list)
 
-for vote in vote_list:
-    top_vote = max(vote_list)
-    winner_index = vote_list.index(top_vote)
-    print(f"{candidate_list[winner_index]}: {percentage[winner_index]:3f}% ({top_vote})")
-    vote_list[winner_index] = 0
-    #del candidate_list[winner_index]
-    #del percentage[winner_index]
-    #print(candidate_list)
-    # print(percentage)
+# Open write file and start writing results
+output_path = os.path.join("analysis", "results.txt")
 
+with open(output_path, 'w', newline="") as output:
+
+    output.write("Election Results")
+    output.write('\n')
+    output.write("-------------------------")
+    output.write('\n')
+    output.write(f"Total Votes: {total_votes}")
+    output.write('\n')
+    output.write("-------------------------")
+    output.write('\n')
+
+
+    # Iterate through unsorted list and print out the winners in order
+    for vote in vote_list:
+        top_vote = max(vote_list)
+        winner_index = vote_list.index(top_vote)
+        winner_list.append(candidate_list[winner_index])
+        output.write(f"{candidate_list[winner_index]}: {percentage[winner_index]:3f}% ({top_vote})")
+        output.write('\n')
+        vote_list[winner_index] = 0
+    
+    output.write("-------------------------")
+    output.write('\n')
+    output.write(f"Winner: {winner_list[0]}")
+    output.write('\n')
+    output.write("-------------------------")
+    output.write('\n')
+
+# Print data on the terminal    
+file = open(output_path, 'r')
+print_output = file.read()   
+print(print_output)
     
 
 
