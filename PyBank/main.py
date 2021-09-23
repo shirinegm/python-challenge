@@ -29,18 +29,21 @@ with open(file_path) as csv_file:
         change_list.append(profit_loss - change)
 
     
-    
+# Define funtion to calculate the average    
 def average(list):
     return sum(list) / len(list)
+# Clean up the list from starter rows
 del change_list[0]
 del change_list[0]
+
+# Call average function
 average_change = average(change_list)
 
-
+# print out
 print("Financial Analysis")
 print("------------------------------------")
 print(f"Total Months {total_months}")
 print(f"Total: ${total_net}")
-print(f"Average Change: ${average_change}")
+print(f"Average Change: ${average_change:.2f}")
 # print(change_list)
 
